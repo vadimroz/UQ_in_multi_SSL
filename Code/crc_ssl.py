@@ -8,7 +8,7 @@ from tqdm import tqdm
 
 from scipy.spatial.distance import cdist
 
-from plots import plot_roi_neighbours
+from Code.plots import plot_roi_neighbours
 from utilities import create_save_directory
 
 from utilities import normalize

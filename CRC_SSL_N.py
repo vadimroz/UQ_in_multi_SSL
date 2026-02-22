@@ -1,7 +1,7 @@
 import argparse
-from crc_ssl import CoverageSet
-from plots import plot_roi_neighbours
-from utilities import *
+from Code.crc_ssl import CoverageSet
+from Code.plots import plot_roi_neighbours
+from Code.utilities import *
 
 parser = argparse.ArgumentParser(description="Run CRC_SSL_N script with configurable parameters.")
 parser.add_argument("--plot", type=int, default=0, help="Enable or disable plotting (0 or 1)")
