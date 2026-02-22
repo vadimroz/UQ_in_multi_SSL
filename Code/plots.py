@@ -129,69 +129,6 @@ def plot_roi_neighbours(likelihood_map, mask, true_position, estimated_position,
         ax.set_xlim(x_ticks)
         ax.set_ylim(y_ticks)
 
-def plot_roi_neighbours_testing(likelihood_map, true, estimated):
-
-    if not hasattr(plot_roi_neighbours, "counter"):
-        plot_roi_neighbours.counter = 0
-
-    extent = [2.0, 4.0, 3.7, 1.7]
-
-    fig, ax = plt.subplots(constrained_layout=True)
-
-    estimated = estimated if estimated.ndim > 1 else np.expand_dims(estimated, axis=0)
-    true = true if true.ndim > 1 else np.expand_dims(true, axis=0)
-
-    # Plot the speakers.
-    for (x_est, y_est) in estimated:
-        ax.plot(
-            y_est,
-            x_est,
-            '^',
-            color='red', markersize=15,
-            markeredgecolor='white', markerfacecolor='red'
-        )
-    for (x_true, y_true) in true:
-        ax.plot(
-            y_true,
-            x_true,
-             '^',
-            color='blue', markersize=15,
-            markeredgecolor='white', markerfacecolor='blue'
-        )
-
-    heatmap = ax.imshow(likelihood_map, extent=extent)
-    fig.colorbar(heatmap, ax=ax)
-
-    ax.set_xlabel('Y-Coordinate')
-    ax.set_ylabel('X-Coordinate')
-
-    ax.grid(True, which='both', color='gray', linestyle='--', linewidth=0.5, alpha=0.5)
-
-    plt.show()
-
-
-def is_point_in_rectangle(true_point, estimated_point, rect_radius, cell_resolution_x, cell_resolution_y, axis_ticks):
-    """
-    Check if the center of a rectangle lies within its boundaries after adjustment.
-    """
-
-    true_x_cord, true_y_cord = true_point
-
-    rect_width = rect_radius * cell_resolution_x
-    rect_height = rect_radius * cell_resolution_y
-    rect_x_lower = estimated_point[0] - rect_width
-    rect_x_upper = estimated_point[0] + rect_width
-    rect_y_lower = estimated_point[1] - rect_height
-    rect_y_upper = estimated_point[1] + rect_height
-
-    print(f'True location: {true_point}\nEstimated location: {estimated_point}\nBoundries: {rect_x_lower, rect_x_upper}, {rect_y_lower, rect_y_upper}')
-
-    return (
-        rect_x_lower <= true_x_cord <= rect_x_upper and
-        rect_y_lower <= true_y_cord <= rect_y_upper
-    )
-
-
 def extract_grid_boundaries(mask, extent):
     """
     Extracts grid cell boundary segments for the True region in a binary mask.
