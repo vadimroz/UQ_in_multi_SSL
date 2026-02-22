@@ -1,0 +1,9 @@
+matplotlib
+numpy
+scipy
+tabulate
+scikit-learn
+pandas
+joblib
+tqdm
+
