@@ -1,6 +1,6 @@
 # UQ in Multi-SSL
 
-This repository contains code and data for uncertainty quantification (UQ) in multi-source sound source localization (SSL). It includes various Python scripts for plotting, simulations, and statistical analysis, as well as preprocessed data for experiments.
+This repository contains code and data for uncertainty quantification in multi-SSL.
 
 ## Repository Structure
 
