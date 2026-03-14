@@ -9,9 +9,7 @@ from tqdm import tqdm
 from scipy.spatial.distance import cdist
 
 from Code.plots import plot_roi_neighbours
-from utilities import create_save_directory
-
-from utilities import normalize
+from Code.utilities import create_save_directory, normalize
 
 class CoverageSet:
     def __init__(self, true_position, estimated_positions, likelihood_maps, lambda_list, room, path_, plot_function):
@@ -237,6 +235,7 @@ class CoverageSet:
         :param position:
         :return:
         """
+
         x_projected = np.argmin(np.abs(position[0] - self.room.xl[:, 0]))
         y_projected = np.argmin(np.abs(position[1] - self.room.yl[0]))
         return np.array([x_projected, y_projected])

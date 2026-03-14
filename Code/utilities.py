@@ -16,7 +16,7 @@ class SourceAmount:
 class ModelType:
     SRP_PHAT = 'srp_phat'
     SRP_DNN = 'srp_dnn'
-    LOCATA_SYNTHETIC = 'locata_synthetic'
+    LOCATA_MATCHED = 'locata_matched'
     LOCATA_DATASET = 'locata_dataset'
     LOCATA_AUG = 'locata_augmented'
 
@@ -25,7 +25,7 @@ class LocalizationMethod:
     SRP_DNN = 'srp_dnn'
 
 class DatasetType:
-    LOCATA_SYNTHETIC = 'locata_synthetic'
+    LOCATA_MATCHED = 'locata_matched'
     LOCATA_AUG = 'locata_augmented'
     SYNTHETIC = 'synthetic'
     SYNTETHIC_MANY_ROOMS = 'synthetic_many_rooms'

@@ -5,13 +5,13 @@ from Code.utilities import *
 
 parser = argparse.ArgumentParser(description="Run CRC_SSL_N script with configurable parameters.")
 parser.add_argument("--plot", type=int, default=0, help="Enable or disable plotting (0 or 1)")
-parser.add_argument("--model_type", type=str, default="SRP_PHAT", help="Model type (e.g., SRP_PHAT)")
+parser.add_argument("--model_type", type=str, default="SRP_DNN", help="Model type (SRP_PHAT or SRP_DNN)")
 parser.add_argument("--num_iterations", type=int, default=100, help="Number of iterations")
 parser.add_argument("--seed", type=int, default=1234567890, help="Random seed")
 parser.add_argument("--snr", type=int, default=15, help="Signal-to-noise ratio")
 parser.add_argument("--reverb", type=int, default=700, help="Reverberation time in ms")
 parser.add_argument("--speakers", type=int, default=3, help="Number of speakers")
-parser.add_argument("--Kmax", type=int, default=3, help="Maximum K value")
+parser.add_argument("--Kmax", type=int, default=3, help="Maximum speakers count")
 parser.add_argument("--lambda_steps", type=int, default=1000, help="Number of steps for lambda")
 parser.add_argument("--significance_levels", type=float, nargs='+', default=[0.1, 0.05], help="Significance levels")
 args = parser.parse_args()
@@ -30,7 +30,7 @@ Kmax = args.Kmax
 lambda_list_ext = np.linspace(0., 1., args.lambda_steps) # Lambda
 significance_level = np.array(args.significance_levels)
 
-filename = f'./data/{model_type}/Reverb_{reverb}_ms_SNR_{snr}_dB/speakers_{speakers}.npz'
+filename = f'./data/{model_type}/Synthetic/Reverb_{reverb}_ms_SNR_{snr}_dB/speakers_{speakers}.npz'
 
 print(f'Current setup: {model_type} with {speakers} speakers')
 
@@ -41,7 +41,7 @@ all_likelihood_maps = data['all_likelihood_maps']
 
 room_obj = data['rir_obj'].item()
 room = type('Room', (object,), room_obj)()
-
+grid_size = room.xl.size
 total_dataset_size = speaker_pos.shape[0]
 
 splits = generate_random_splits(total_samples=total_dataset_size,
@@ -76,7 +76,7 @@ for iter in range(num_iterations):
                                       test_plot=False)
 
     coverage_array.append(coverage)
-    area_array.append(area/37/73*100)  # normalize by sphere area
+    area_array.append(area/grid_size*100)
     print(coverage)
     print(area)
 
