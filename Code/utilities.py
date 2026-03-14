@@ -27,7 +27,7 @@ class LocalizationMethod:
 class DatasetType:
     LOCATA_MATCHED = 'locata_matched'
     LOCATA_AUG = 'locata_augmented'
-    SYNTHETIC = 'synthetic'
+    SYNTHETIC = 'Synthetic'
     SYNTETHIC_MANY_ROOMS = 'synthetic_many_rooms'
 
 def normalize(x, a=0, b=1):
