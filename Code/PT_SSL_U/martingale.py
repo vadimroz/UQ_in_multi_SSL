@@ -1,5 +1,7 @@
 import numpy as np
 
+# Based on https://github.com/gostevehoward/confseq
+
 def lambda_predmix_eb(
     x,
     truncation=np.inf,               # safer default than ∞
