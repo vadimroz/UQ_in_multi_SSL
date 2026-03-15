@@ -89,5 +89,6 @@ python PT_SSL_U.py \
 - `--alpha_MD`: Alpha_MD value for missed detection. Default is `0.1`.
 
 
-## Contact
-For inquiries, please contact Vadim Rozenfeld at [vadimroz@mail.tau.ac.il](mailto:vadimroz@mail.tau.ac.il).
+[//]: # (## Contact)
+
+[//]: # (For inquiries, please contact Vadim Rozenfeld at [vadimroz@mail.tau.ac.il]&#40;mailto:vadimroz@mail.tau.ac.il&#41;.)
