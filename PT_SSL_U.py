@@ -183,7 +183,6 @@ class LocataTestingEngine(BaseTestingEngine):
     def _build_test_set(self, split: IterationSplit, chosen_config_index: int) -> pd.DataFrame:
         test_combined = self.locata_loss[self.locata_loss["config_index"] == chosen_config_index]
         speaker_2 = test_combined[test_combined["True_speakers"] == 2]
-        speaker_2 = speaker_2.loc[~speaker_2["Sample"].isin({3, 12, 18, 26, 27, 33, 38, 43, 49, 60, 62, 65, 67, 69, 72, 73, 83})].sample(n=10)
         speaker_1 = test_combined[test_combined["True_speakers"] == 1].sample(n=10, replace=False)
         return pd.concat([speaker_1, speaker_2], axis=0)
 
