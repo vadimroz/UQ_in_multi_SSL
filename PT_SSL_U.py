@@ -15,8 +15,8 @@ def parse_arguments():
     """Parse CLI arguments for dataset selection and experiment hyperparameters."""
     parser = argparse.ArgumentParser(description="Run PT_SSL_U.py with configurable parameters.")
     parser.add_argument("--dataset", type=str, default="SYNTHETIC", help="Dataset type (SYNTHETIC or LOCATA).")
-    parser.add_argument("--localization", type=str, default="SRP_PHAT", help="Localization method (SRP_PHAT or SRP_DNN).")
-    parser.add_argument("--test_on_locata", type=bool, default=False, help="Test on LOCATA dataset.")
+    parser.add_argument("--localization", type=str, default="SRP_DNN", help="Localization method (SRP_PHAT or SRP_DNN).")
+    parser.add_argument("--test_on_locata", type=bool, default=1, help="Test on LOCATA dataset.")
     parser.add_argument("--num_iterations", type=int, default=100, help="Number of iterations.")
     parser.add_argument("--calib_opt", type=int, default=200, help="Number of calibration optimization sets.")
     parser.add_argument("--calib_test", type=int, default=200, help="Number of calibration test sets.")
@@ -182,7 +182,7 @@ class LocataTestingEngine(BaseTestingEngine):
 
     def _build_test_set(self, split: IterationSplit, chosen_config_index: int) -> pd.DataFrame:
         test_combined = self.locata_loss[self.locata_loss["config_index"] == chosen_config_index]
-        speaker_2 = test_combined[test_combined["True_speakers"] == 2]
+        speaker_2 = test_combined[test_combined["True_speakers"] == 2].sample(n=10, replace=False)
         speaker_1 = test_combined[test_combined["True_speakers"] == 1].sample(n=10, replace=False)
         return pd.concat([speaker_1, speaker_2], axis=0)
 
@@ -258,8 +258,9 @@ class ExperimentRunner:
         )
         # Choose testing strategy based on target evaluation dataset.
         if self.config["test_on_locata"]:
-            locata_dataset = f"data/{self.config['localization']}/LOCATA/dataset.parquet"
+            locata_dataset = f"data/{self.config['localization']}/LOCATA/locata_loss.parquet"
             locata_loss = pd.read_parquet(locata_dataset, engine="pyarrow")
+
             testing_engine = LocataTestingEngine(
                 data_manager=self.data_manager,
                 kmax=self.kmax,
