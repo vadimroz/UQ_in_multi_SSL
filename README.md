@@ -1,8 +1,11 @@
-# UQ in Multi-SSL
+# Uncertainty Quantification and Risk Control for Multi-Speaker Sound Source Localization
+
 
 ![CRC Figure](crc_fig_for_git.png)
 
-This repository contains code and data for uncertainty quantification in multi-SSL. The project focuses on leveraging advanced statistical methods to analyze and quantify uncertainty in multi-source sound localization (SSL) tasks.
+This repository contains code and data for uncertainty quantification in multi-SSL. The project focuses on leveraging 
+advanced statistical methods to analyze and quantify uncertainty in multi-source sound localization (SSL) tasks.
+
 
 ## Repository Structure
 

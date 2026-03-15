@@ -5,21 +5,6 @@ import numpy as np
 from tabulate import tabulate
 from sklearn.model_selection import train_test_split
 
-class Type:
-    FULL = 'full'
-    PAIRS = 'pairs'
-
-class SourceAmount:
-    KNOWN = 'known'
-    UNKNOWN = 'unknown'
-
-class ModelType:
-    SRP_PHAT = 'srp_phat'
-    SRP_DNN = 'srp_dnn'
-    LOCATA_MATCHED = 'locata_matched'
-    LOCATA_DATASET = 'locata_dataset'
-    LOCATA_AUG = 'locata_augmented'
-
 class LocalizationMethod:
     SRP_PHAT = 'srp_phat'
     SRP_DNN = 'srp_dnn'

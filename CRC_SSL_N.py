@@ -47,7 +47,7 @@ total_dataset_size = speaker_pos.shape[0]
 splits = generate_random_splits(total_samples=total_dataset_size,
                                 num_iterations=num_iterations,
                                 calib_size=int(total_dataset_size * 0.8),
-                                num_lists=1, random_seed=42)
+                                num_lists=1)
 folds_across_lists = list(zip(*splits))
 
 coverage_array, area_array = [], []

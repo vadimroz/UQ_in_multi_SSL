@@ -8,22 +8,24 @@ from tqdm import tqdm
 from Code.PT_SSL_U.utilities import compute_risks, compute_p_values_wsr, compute_Pareto_frontier
 from Code.utilities import *
 
+seed = 1234567890
+np.random.seed(seed)
 
 def parse_arguments():
     """Parse CLI arguments for dataset selection and experiment hyperparameters."""
     parser = argparse.ArgumentParser(description="Run PT_SSL_U.py with configurable parameters.")
     parser.add_argument("--dataset", type=str, default="SYNTHETIC", help="Dataset type (SYNTHETIC or LOCATA).")
     parser.add_argument("--localization", type=str, default="SRP_PHAT", help="Localization method (SRP_PHAT or SRP_DNN).")
-    parser.add_argument("--test_on_locata", type=int, default=0, help="Test on LOCATA dataset (0 or 1).")
+    parser.add_argument("--test_on_locata", type=bool, default=False, help="Test on LOCATA dataset.")
     parser.add_argument("--num_iterations", type=int, default=100, help="Number of iterations.")
     parser.add_argument("--calib_opt", type=int, default=200, help="Number of calibration optimization sets.")
     parser.add_argument("--calib_test", type=int, default=200, help="Number of calibration test sets.")
     parser.add_argument("--test_sets", type=int, default=100, help="Number of test sets.")
     parser.add_argument("--snr", type=int, default=15, help="Signal-to-noise ratio in dB.")
     parser.add_argument("--reverb", type=int, default=400, help="Reverberation time in ms.")
-    parser.add_argument("--delta", type=float, default=0.1, help="Delta value.")
-    parser.add_argument("--alpha_MC", type=float, default=0.1, help="Alpha_MC value.")
-    parser.add_argument("--alpha_MD", type=float, default=0.1, help="Alpha_MD value.")
+    parser.add_argument("--delta", type=float, default=0.1, help="Significance level.")
+    parser.add_argument("--alpha_MC", type=float, default=0.1, help="MC tolerance level.")
+    parser.add_argument("--alpha_MD", type=float, default=0.1, help="MD tolerance level.")
     return parser.parse_args()
 
 
@@ -143,11 +145,10 @@ class CalibrationEngine:
         efficient_indices = compute_Pareto_frontier(costs_free)
         lambda_star = lambda_rejected[efficient_indices]
 
-        # try:
-        return lambda_star.loc[lambda_star["Risk_Area"].idxmin()].filter(like="config_index").item()
-        # except Exception:
-        #     print("*")
-        #     return cal_risks.loc[cal_risks["p_values"].idxmin()].filter(like="config_index").item()
+        try:
+            return lambda_star.loc[lambda_star["Risk_Area"].idxmin()].filter(like="config_index").item()
+        except Exception:
+            return cal_risks.loc[cal_risks["p_values"].idxmin()].filter(like="config_index").item()
 
 
 class BaseTestingEngine:
@@ -175,10 +176,14 @@ class BaseTestingEngine:
 
 class LocataTestingEngine(BaseTestingEngine):
     """Testing strategy for LOCATA evaluation protocol."""
+    def __init__(self, data_manager: DataManager, kmax: int, calib_opt: int, locata_loss: pd.DataFrame):
+        super().__init__(data_manager, kmax, calib_opt)
+        self.locata_loss = locata_loss
+
     def _build_test_set(self, split: IterationSplit, chosen_config_index: int) -> pd.DataFrame:
-        test_combined = locata_loss[locata_loss["config_index"] == chosen_config_index]
+        test_combined = self.locata_loss[self.locata_loss["config_index"] == chosen_config_index]
         speaker_2 = test_combined[test_combined["True_speakers"] == 2]
-        speaker_2 = speaker_2.loc[~speaker_2["Sample"].isin(indices_to_remove)].sample(n=10)
+        speaker_2 = speaker_2.loc[~speaker_2["Sample"].isin({3, 12, 18, 26, 27, 33, 38, 43, 49, 60, 62, 65, 67, 69, 72, 73, 83})].sample(n=10)
         speaker_1 = test_combined[test_combined["True_speakers"] == 1].sample(n=10, replace=False)
         return pd.concat([speaker_1, speaker_2], axis=0)
 
@@ -235,7 +240,6 @@ class ExperimentRunner:
             num_iterations=self.config["num_iterations"],
             calib_size=int(self.config["samples"] * 0.8),
             num_lists=self.kmax,
-            random_seed=42,
         )
         folds_across_lists = list(zip(*splits))
 
@@ -255,10 +259,13 @@ class ExperimentRunner:
         )
         # Choose testing strategy based on target evaluation dataset.
         if self.config["test_on_locata"]:
+            locata_dataset = f"data/{self.config['localization']}/LOCATA/dataset.parquet"
+            locata_loss = pd.read_parquet(locata_dataset, engine="pyarrow")
             testing_engine = LocataTestingEngine(
                 data_manager=self.data_manager,
                 kmax=self.kmax,
                 calib_opt=self.config["calib_opt"],
+                locata_loss=locata_loss,
             )
         else:
             testing_engine = SyntheticTestingEngine(
@@ -294,6 +301,7 @@ class ExperimentRunner:
 
 def main():
     """Entry point: load data, run experiment, and print summary metrics."""
+
     kmax = 3
     args = parse_arguments()
 
@@ -311,10 +319,21 @@ def main():
     assert alpha_mc == alpha_md, "alpha_MC and alpha_MD must be same."
     assert kmax <= 3, "Kmax greater than 3 is not supported by current data loading logic."
 
+    if args.test_on_locata:
+        kmax = 2
+        dataset = "LOCATA_Matched"
+
+        # LOCATA dataset room conditions
+        args.snr = 20 #dB
+        args.reverb = 550 #ms
+
+        print(f"Testing on LOCATA with Kmax= 2, SNR={args.snr} dB and Reverb={args.reverb} ms ...")
+
     all_risks_filename = (
         f"data/{localization}/{dataset}/Reverb_{args.reverb}_ms_SNR_{args.snr}_dB/dataset.parquet"
     )
-    print(f"Loading existing risks from {all_risks_filename} ...")
+
+    print(f"Loading dataset from {all_risks_filename} ...")
     loss_by_config = pd.read_parquet(all_risks_filename, engine="pyarrow")
 
     runner_config = {
@@ -324,6 +343,7 @@ def main():
         "samples": samples,
         "delta": args.delta,
         "alphas": alphas,
+        "localization": localization,
     }
     runner = ExperimentRunner(loss_by_config=loss_by_config, kmax=kmax, config=runner_config)
     final_results, miscoverage_instances, midetect_instances = runner.run()
