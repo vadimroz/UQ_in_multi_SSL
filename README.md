@@ -85,10 +85,6 @@ python PT_SSL_U.py \
 - `--alpha_MC`: Alpha_MC value for misclassification. Default is `0.1`.
 - `--alpha_MD`: Alpha_MD value for missed detection. Default is `0.1`.
 
-## Features
-- **Modular Design**: The scripts are designed to be modular, allowing users to easily adapt them to different datasets and configurations.
-- **Reproducibility**: The repository includes preprocessed data and random seeds to ensure reproducible results.
-- **Visualization**: The `CRC_SSL_N.py` script includes an option to generate plots for better understanding of the results.
 
 ## Contact
 For inquiries, please contact Vadim Rozenfeld at [vadimroz@mail.tau.ac.il](mailto:vadimroz@mail.tau.ac.il).
