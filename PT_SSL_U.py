@@ -15,8 +15,8 @@ def parse_arguments():
     """Parse CLI arguments for dataset selection and experiment hyperparameters."""
     parser = argparse.ArgumentParser(description="Run PT_SSL_U.py with configurable parameters.")
     parser.add_argument("--dataset", type=str, default="SYNTHETIC", help="Dataset type (SYNTHETIC or LOCATA).")
-    parser.add_argument("--localization", type=str, default="SRP_DNN", help="Localization method (SRP_PHAT or SRP_DNN).")
-    parser.add_argument("--test_on_locata", type=bool, default=1, help="Test on LOCATA dataset.")
+    parser.add_argument("--localization", type=str, default="SRP_PHAT", help="Localization method (SRP_PHAT or SRP_DNN).")
+    parser.add_argument("--test_on_locata", type=bool, default=False, help="Test on LOCATA dataset.")
     parser.add_argument("--num_iterations", type=int, default=100, help="Number of iterations.")
     parser.add_argument("--calib_opt", type=int, default=200, help="Number of calibration optimization sets.")
     parser.add_argument("--calib_test", type=int, default=200, help="Number of calibration test sets.")
