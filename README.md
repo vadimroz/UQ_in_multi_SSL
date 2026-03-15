@@ -7,8 +7,8 @@ This repository contains code and data for uncertainty quantification in multi-S
 ## Repository Structure
 
 ### Python Scripts
-- **`CRC_SSL_N.py`**: Implements the CRC method for known-source count. This script allows users to evaluate the performance of SSL algorithms under controlled conditions.
-- **`PT_SSL_U.py`**: Implements the PT-SSL method for uncertainty quantification. This script is designed for probabilistic thresholding in SSL tasks.
+- **`CRC_SSL_N.py`**:  Implements the CRC-based uncertainty quantification method for scenarios with a **known number of sound sources**. 
+- **`PT_SSL_U.py`**: Implements the Pareto-Testing method for uncertainty quantification when the **number of sound sources is unknown**.
 
 ### Data
 The `data/` directory contains `.npz` files organized by reverb and SNR levels:
