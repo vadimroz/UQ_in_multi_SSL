@@ -34,7 +34,7 @@ def mc_area_risk(true_speakers, estimated_speakers, true_pos, estimated_pos, lik
     true_source_grid = [project_onto_grid(true_pos[i], room) for i in range(true_speakers)]
 
     for i, est_pair in enumerate(estimated_pos):
-        likelihood_map = normalize(likelihood_maps[i, ...]) # worked for locata dnn** 0.5
+        likelihood_map = normalize(likelihood_maps[i, ...])
 
         estimated_source_grid = project_onto_grid(est_pair, room)
 
