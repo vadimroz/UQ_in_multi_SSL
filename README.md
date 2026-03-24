@@ -88,6 +88,19 @@ python PT_SSL_U.py \
 - `--alpha_MC`: Alpha_MC value for misclassification. Default is `0.1`.
 - `--alpha_MD`: Alpha_MD value for missed detection. Default is `0.1`.
 
+## Citation
+
+If you use this repository in your research, please cite:
+
+```bibtex
+@article{rozenfeld2026uncertainty,
+  title={Uncertainty Quantification and Risk Control for Multi-Speaker Sound Source Localization},
+  author={Rozenfeld, Vadim and Goldshtein, Bracha Laufer},
+  journal={arXiv preprint arXiv:2603.17377},
+  year={2026}
+}
+```
+
 
 [//]: # (## Contact)
 
