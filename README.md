@@ -42,8 +42,9 @@ All available configurations for these runners are included under `configs/`.
 Every dataset and checkpoint referenced by those configurations is bundled
 under the project-level `data/` and `Models/` directories.
 
-See [`Models/README.md`](Models/README.md) for model provenance, artifact details,
-and citations for SRP-DNN and the adapted mixture-density network.
+See the model-specific documentation for provenance and artifact details:
+[`SRP-DNN`](Models/SRP-DNN/README.md) and
+[`MDN`](Models/MDN/README.md).
 
 ## Citation
 
