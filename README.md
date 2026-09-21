@@ -1,4 +1,20 @@
-# Minimal runnable experiments
+# Uncertainty Quantification and Risk Control for Multiple Sound Source Localization
+
+This repository is the official implementation of the paper “Uncertainty
+Quantification and Risk Control for Multiple Sound Source Localization.”
+
+## Citation
+
+If you use this implementation, please cite:
+
+> V. Rozenfeld and B. Laufer-Goldshtein, "Uncertainty Quantification and Risk
+> Control for Multiple Sound Source Localization," in IEEE Transactions on
+> Audio, Speech and Language Processing, vol. 34, pp. 4231-4246, 2026,
+> doi: 10.1109/TASLPRO.2026.3725584.
+
+[Paper DOI](https://doi.org/10.1109/TASLPRO.2026.3725584)
+
+## Included experiments
 
 This branch contains only the code, configurations, datasets, and pretrained
 checkpoint needed to run the default experiments in:
