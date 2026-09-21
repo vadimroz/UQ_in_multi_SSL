@@ -1,0 +1,45 @@
+dataset:
+  dataset: LOCATA
+  locata_sources: static
+  resolved_dataset: LOCATA
+  localization_method: SRP_DNN
+  localization_dir: srp_dnn
+  kmax: 2
+  snr_db: 20
+  reverb_ms: 550
+
+paths:
+  loss_parquet: data/srp_dnn/LOCATA/hybrid/loss.parquet
+  speakers_glob: data/srp_dnn/LOCATA/speakers_*.npz
+
+simulation:
+  # Number of times to repeat the complete split, selection, and evaluation procedure.
+  num_iterations: 100
+  # Reserved indices used when constructing the calibration split. This does not
+  # control the number of real LOCATA test rows; see evaluation below.
+  test_sets: 50
+  calibration_split_policy: explicit
+  # calibration_total must equal calib_opt + calib_test.
+  calibration_total: 400
+  # Samples per speaker count used to build and order the candidate configurations.
+  calib_opt: 200
+  # Independent samples per speaker count used by fixed-sequence testing (FST).
+  calib_test: 200
+  # total_samples must equal calibration_total + test_sets.
+  total_samples: 500
+
+calibration:
+  delta: 0.1
+  wsr_scale: 10.0
+  alpha_MC: 0.1
+  alpha_MD: 0.1
+  free_risks:
+    - Risk_Area
+    - Risk_FA
+
+evaluation:
+  test_strategy: locata_random_per_speaker
+  normalize_loss_area_by_estimated_speakers: true
+  include_angular_errors: true
+  # Real LOCATA rows sampled for each speaker count in every iteration.
+  locata_static_test_samples_per_speaker: 10
