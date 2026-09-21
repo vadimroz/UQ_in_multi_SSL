@@ -9,7 +9,7 @@ dataset:
   reverb_ms: 550
 
 paths:
-  loss_parquet: data/srp_dnn/LOCATA_Moving_Speakers/Pareto_simulation_results/loss.parquet
+  loss_parquet: data/srp_dnn/LOCATA_Moving/Reverb_550_ms_SNR_20_dB/loss.parquet
   speakers_glob: data/srp_dnn/LOCATA_Moving/Reverb_550_ms_SNR_20_dB/speakers_*.npz
   speaker_1_npz: data/srp_dnn/LOCATA_Moving/Reverb_550_ms_SNR_20_dB/speakers_1.npz
   speaker_2_npz: data/srp_dnn/LOCATA_Moving/Reverb_550_ms_SNR_20_dB/speakers_2.npz
