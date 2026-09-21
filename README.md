@@ -36,3 +36,6 @@ python mdn_model.py --config configs/mdn/syn_srp_dnn_r400_snr15.yaml
 All available configurations for these runners are included under `configs/`.
 Every dataset and checkpoint referenced by those configurations is bundled
 under the project-level `data/` and `Exp/` directories.
+
+See [`Exp/README.md`](Exp/README.md) for model provenance, artifact details,
+and citations for SRP-DNN and the adapted mixture-density network.
