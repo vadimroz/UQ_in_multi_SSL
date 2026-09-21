@@ -1,0 +1,29 @@
+dataset:
+  name: Synthetic dataset
+  localization_method: SRP_DNN
+  speakers: 2
+  snr_db: 10
+  reverb_ms: 1000
+
+paths:
+  speakers_npz: data/srp_dnn/Synthetic/Reverb_{reverb_ms}_ms_SNR_{snr_db}_dB/speakers_{speakers}.npz
+
+simulation:
+  # Number of independent calibration/test folds.
+  num_iterations: 100
+  seed: 1234567890
+  # Fraction of samples assigned to calibration in every fold.
+  calibration_fraction: 0.8
+
+calibration:
+  lambda_min: 0.0
+  lambda_max: 1.0
+  lambda_steps: 1000
+  significance_levels:
+    - 0.05
+
+evaluation:
+  plot: false
+  plot_coverage_set: false
+  test_plot: false
+  output_dir: outputs/crc_ssl_n

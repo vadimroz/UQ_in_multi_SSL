@@ -1,0 +1,54 @@
+dataset:
+  type: Synthetic
+  localization_method: srp_dnn
+  speakers: 2
+  snr_db: 15
+  reverb_ms: 700
+
+paths:
+  evaluation_npz: data/{localization_method}/{type}/Reverb_{reverb_ms}_ms_SNR_{snr_db}_dB/speakers_{speakers}.npz
+  training_npz: data/mdn/speakers_{speakers}_reverb_{reverb_ms}.npz
+  best_weights: Exp/mdn_best.speakers_{speakers}_reverb_{reverb_ms}.weights.h5
+  last_weights: Exp/mdn_last.weights.h5
+
+experiment:
+  num_iterations: 100
+  calibration_fraction: 0.8
+  seed: 42
+  verbose: false
+
+runtime:
+  # auto selects a GPU when available and otherwise uses the CPU.
+  device: auto
+  gpu_id: 0
+  cpu_threads: 8
+
+model:
+  input_channels: 1
+  output_dim_per_speaker: 2
+  num_components: 2
+
+calibration:
+  alpha: 0.1
+  # Supported shapes: ellipse or rect.
+  region_shape: ellipse
+
+grid:
+  azimuth_range_deg:
+    - -180.0
+    - 180.0
+  elevation_range_deg:
+    - 0.0
+    - 180.0
+  azimuth_bins: 73
+  elevation_bins: 37
+  azimuth_bin_size_deg: 5.0
+  elevation_bin_size_deg: 5.0
+
+training:
+  # These settings are used only when best_weights does not exist.
+  epochs: 200
+  batch_size: 64
+  learning_rate: 0.002
+  weight_decay: 0.0001
+  validation_fraction: 0.2

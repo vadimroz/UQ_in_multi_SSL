@@ -1,0 +1,42 @@
+dataset:
+  dataset: LOCATA
+  locata_sources: moving
+  resolved_dataset: LOCATA_Moving
+  localization_method: SRP_DNN
+  localization_dir: srp_dnn
+  kmax: 2
+  snr_db: 20
+  reverb_ms: 550
+
+paths:
+  loss_parquet: data/srp_dnn/LOCATA_Moving_Speakers/Pareto_simulation_results/loss.parquet
+  speakers_glob: data/srp_dnn/LOCATA_Moving/Reverb_550_ms_SNR_20_dB/speakers_*.npz
+  speaker_1_npz: data/srp_dnn/LOCATA_Moving/Reverb_550_ms_SNR_20_dB/speakers_1.npz
+  speaker_2_npz: data/srp_dnn/LOCATA_Moving/Reverb_550_ms_SNR_20_dB/speakers_2.npz
+
+simulation:
+  # Number of times to repeat the complete split, selection, and evaluation procedure.
+  num_iterations: 100
+  # Held-out sample indices per speaker count in each iteration.
+  test_sets: 50
+  calibration_split_policy: explicit
+  # calibration_total must equal calib_opt + calib_test.
+  calibration_total: 600
+  # Samples per speaker count used to build and order the candidate configurations.
+  calib_opt: 300
+  # Independent samples per speaker count used by fixed-sequence testing (FST).
+  calib_test: 300
+  # total_samples must equal calibration_total + test_sets.
+  total_samples: 700
+
+calibration:
+  delta: 0.1
+  alpha_MC: 0.1
+  alpha_MD: 0.1
+  free_risks:
+    - Risk_Area
+    - Risk_FA
+
+evaluation:
+  normalize_loss_area_by_estimated_speakers: true
+  include_angular_errors: true

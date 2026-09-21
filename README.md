@@ -32,3 +32,7 @@ python run_pt_ssl_u.py --config configs/crc_ssl_u/locata_hybrid.yaml
 python CRC_SSL_N.py --config configs/crc_ssl_n/syn_srp_phat_r400_snr15.yaml
 python mdn_model.py --config configs/mdn/syn_srp_dnn_r400_snr15.yaml
 ```
+
+All available configurations for these runners are included under `configs/`.
+The bundled datasets and checkpoint cover the three default commands above;
+additional configurations may require their corresponding runtime assets.
