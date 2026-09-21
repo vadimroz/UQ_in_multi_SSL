@@ -1,7 +1,7 @@
 dataset:
   name: Synthetic dataset
   localization_method: SRP_DNN
-  speakers: 2
+  speakers: 2 # Supported values: 1, 2, or 3.
   snr_db: 10
   reverb_ms: 1000
 
