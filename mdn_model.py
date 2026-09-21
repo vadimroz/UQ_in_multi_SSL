@@ -363,7 +363,7 @@ def resolve_device(requested_device: str | None = None) -> str:
     return "/CPU:0"
 
 
-checkpoint_dir = PROJECT_ROOT / "Exp"
+checkpoint_dir = PROJECT_ROOT / "Models" / "MDN"
 best_model_path = checkpoint_dir / (
     f"mdn_best.speakers_{DEFAULT_NUM_SPEAKERS}_reverb_{REVERB}.weights.h5"
 )

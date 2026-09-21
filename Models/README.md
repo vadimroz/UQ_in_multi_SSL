@@ -1,12 +1,13 @@
 # Model artifacts and provenance
 
 This directory contains pretrained model artifacts used by the runnable
-experiments. The two model families have different origins and should not be
-treated as the same network.
+experiments. SRP-DNN artifacts are stored in `SRP-DNN/`, while the adapted
+mixture-density network artifacts are stored in `MDN/`. The two model families
+have different origins and should not be treated as the same network.
 
 ## SRP-DNN
 
-`SRP_DNN_best_model.tar` is the pretrained SRP-DNN checkpoint used by the
+`SRP-DNN/SRP_DNN_best_model.tar` is the pretrained SRP-DNN checkpoint used by the
 SRP-DNN localization pipeline. SRP-DNN uses a causal convolutional recurrent
 network to estimate direct-path phase-difference sequences from microphone
 pairs. Those estimates are combined using the steered-response-power
@@ -27,7 +28,7 @@ its licensing terms.
 
 ## Adapted mixture-density network
 
-The `mdn_*.weights.h5` files are checkpoints for this repository's adapted
+The `MDN/mdn_*.weights.h5` files are checkpoints for this repository's adapted
 mixture-density network, implemented in `mdn_model.py`. The conceptual
 starting point is the Gaussian-mixture/MDN formulation proposed for
 multi-source direction-of-arrival estimation with conformal coverage
@@ -41,11 +42,11 @@ rectangular or elliptical prediction regions.
 
 The model files are:
 
-- `mdn_best.speakers_2_reverb_400.weights.h5`: selected checkpoint for the
+- `MDN/mdn_best.speakers_2_reverb_400.weights.h5`: selected checkpoint for the
   400 ms reverberation configuration.
-- `mdn_best.speakers_2_reverb_700.weights.h5`: selected checkpoint for the
+- `MDN/mdn_best.speakers_2_reverb_700.weights.h5`: selected checkpoint for the
   700 ms reverberation configuration.
-- `mdn_last.weights.h5`: final checkpoint written during MDN training.
+- `MDN/mdn_last.weights.h5`: final checkpoint written during MDN training.
 
 The motivating paper is:
 

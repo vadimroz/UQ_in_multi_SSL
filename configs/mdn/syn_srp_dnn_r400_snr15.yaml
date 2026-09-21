@@ -8,8 +8,8 @@ dataset:
 paths:
   evaluation_npz: data/{localization_method}/{type}/Reverb_{reverb_ms}_ms_SNR_{snr_db}_dB/speakers_{speakers}.npz
   training_npz: data/mdn/speakers_{speakers}_reverb_{reverb_ms}.npz
-  best_weights: Exp/mdn_best.speakers_{speakers}_reverb_{reverb_ms}.weights.h5
-  last_weights: Exp/mdn_last.weights.h5
+  best_weights: Models/MDN/mdn_best.speakers_{speakers}_reverb_{reverb_ms}.weights.h5
+  last_weights: Models/MDN/mdn_last.weights.h5
 
 experiment:
   num_iterations: 100
