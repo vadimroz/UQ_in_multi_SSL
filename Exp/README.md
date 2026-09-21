@@ -11,6 +11,8 @@ SRP-DNN localization pipeline. SRP-DNN uses a causal convolutional recurrent
 network to estimate direct-path phase-difference sequences from microphone
 pairs. Those estimates are combined using the steered-response-power
 formulation to obtain a spatial spectrum for multiple-source localization.
+The checkpoint uses PyTorch serialization; the pinned `torch` dependency is
+listed in the project-level `requirements.txt`.
 
 The method and original implementation come from:
 
