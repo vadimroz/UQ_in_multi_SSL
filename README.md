@@ -34,5 +34,5 @@ python mdn_model.py --config configs/mdn/syn_srp_dnn_r400_snr15.yaml
 ```
 
 All available configurations for these runners are included under `configs/`.
-The bundled datasets and checkpoint cover the three default commands above;
-additional configurations may require their corresponding runtime assets.
+Every dataset and checkpoint referenced by those configurations is bundled
+under the project-level `data/` and `Exp/` directories.
