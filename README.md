@@ -30,10 +30,12 @@ python CRC_SSL_N.py
 python mdn_model.py
 ```
 
-Each script also accepts a configuration explicitly:
+The commands above use each runner's default configuration. For
+`run_pt_ssl_u.py`, the default is the moving-source LOCATA experiment. Each
+script also accepts a configuration explicitly:
 
 ```bash
-python run_pt_ssl_u.py --config configs/crc_ssl_u/locata_hybrid.yaml
+python run_pt_ssl_u.py --config configs/crc_ssl_u/locata_moving.yaml
 python CRC_SSL_N.py --config configs/crc_ssl_n/syn_srp_phat_r400_snr15.yaml
 python mdn_model.py --config configs/mdn/syn_srp_dnn_r400_snr15.yaml
 ```

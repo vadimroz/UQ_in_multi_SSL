@@ -16,7 +16,7 @@ from Code.utilities import generate_random_splits
 
 
 PROJECT_ROOT = Path(__file__).resolve().parent
-DEFAULT_CONFIG_PATH = Path("configs/crc_ssl_u/locata_hybrid.yaml")
+DEFAULT_CONFIG_PATH = Path("configs/crc_ssl_u/locata_moving.yaml")
 GRID_SIZE = 37 * 73
 
 
