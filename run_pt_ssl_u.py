@@ -251,7 +251,6 @@ class CalibrationEngine:
         try:
             return lambda_star.loc[lambda_star["Risk_Area"].idxmin(), "config_index"]
         except Exception:
-            print("****")
             return cal_risks.loc[cal_risks["p_values"].idxmin(), "config_index"]
 
 
